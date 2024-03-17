@@ -6,7 +6,28 @@ WOLF_IDX = 1
 GOAT_IDX = 2
 CABBAGE_IDX = 3
 
+#recursive depth first search staretgy to solve this problem
+
 def old_world_puzzle(state, step=0, solution=[]):
+    
+    """
+    rules are:
+    1- The farmer can take only one of the other three (wolf, goat, or cabbage) across the river at a time.
+    2- The wolf cannot be left alone with the goat, and the goat cannot be left alone with the cabbage, 
+        without the farmer's supervision.
+    --------------------------------------------------------------
+    state : 4-tuple consisting of booleans for each entity in this puzzle.
+    
+    if False, the entity is on the original side of the river,
+    if True, the entitiy is on the other side of the river.
+    
+    Order of the elements in string --> Farmer Wolf Goat Cabbage
+    for example: (False, False, True, False) means only the goat is on the other side of the river 
+    
+    --------------------------------------------------------------
+    step : int counting the depth of the solution (only needed for print statements) 
+    """
+    
     print(f"\nCurrent state at step {step}: {state}")  # Show current state and step
     
     # Check if state is invalid: wolf and goat alone, or goat and cabbage alone without the farmer.
