@@ -3,6 +3,7 @@ import numpy as np
 import math
 
 #########################################   SELECTION SORT   ######################################### 
+
 def selection_sort(array: typing.List[float]) -> typing.List[float]:
     #iterate over all array elements
     for i in range(len(array)-1):
@@ -20,6 +21,7 @@ def selection_sort(array: typing.List[float]) -> typing.List[float]:
 # print(selection_sort([2,4,5,1,3]))
 
 ######################################  EVALUATE A POLYNOMIAL   #######################################
+
 def evaluate_polynomial (a: typing.List[float],
                          x: float) -> float:
     evaluation = 0 
@@ -62,6 +64,7 @@ def pattern_match(pattern: str, text: str)->int:
 # print(pattern_match(pattern, text))
 
 ##########################################  CLOSEST PAIR   ############################################
+
 def closest_pair(points: typing.List[typing.Tuple[float, float]]) -> typing.Tuple[int, int]:
     closest_pair = None
     min_distance = np.inf
@@ -79,3 +82,44 @@ def closest_pair(points: typing.List[typing.Tuple[float, float]]) -> typing.Tupl
 
 # points = [(0,0), (1,5), (2,1), (-1,4)]
 # print(closest_pair(points))
+
+#######################################  TRAVELING SALESMAN   #########################################
+
+def determine_route(adj_matrix: np.array,
+                    route: typing.List[int],
+                    total_distance: int) -> typing.Tuple[int, typing.List[int]]:
+    """
+    Returns both the shortest route and its length, required for
+    visiting all nodes of the graph in adj_matrix. Route contains
+    the route constructed so far.
+    """
+    route_length = len(route)
+    n = len(adj_matrix)
+    #base case
+    if route_length == n:
+        total_distance += adj_matrix[route[-1]][route[0]]  # Complete the loop by returning to the start
+        route.append(route[0])  # Append the start to the route to complete the cycle
+        return total_distance, route
+    
+    #recursive step
+    else:
+        best_route = None
+        best_distance = np.inf  
+        for i in range(n):
+            if i not in route:  # Ensure we do not revisit nodes
+                current_distance = adj_matrix[route[-1]][i]
+                new_total_distance = total_distance + current_distance
+                new_route = route + [i]  # Create a new route with the current node added
+                distance, total_route = determine_route(adj_matrix, new_route, new_total_distance)
+                
+                if distance < best_distance:  # Update if a new best route is found
+                    best_distance, best_route = distance, total_route
+        return best_distance, best_route
+
+########################################  KNAPSACK PROBLEM   ###########################################      
+
+
+  
+
+     
+        
